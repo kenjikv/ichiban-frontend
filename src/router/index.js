@@ -68,12 +68,12 @@ const routes = [
   {
     path: PAGE.PRODUCT.PATH,
     name: PAGE.PRODUCT.NAME,
-    component: () => import('../views/product/Product')
+    component: () => import('../views/product/Index')
   },
   {
     path: PAGE.PRODUCT_DETAIL.PATH,
     name: PAGE.PRODUCT_DETAIL.NAME,
-    component: () => import('../views/product/DetailProduct')
+    component: () => import('../views/product/Detail')
   },
   {
     path: PAGE.SUPPLIER.PATH,
