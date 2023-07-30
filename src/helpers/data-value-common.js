@@ -4,15 +4,11 @@ export const MENU_CODE = {
     USER: 2,
     ROLE: 3,
     CUSTOMER: 4,
-    ZONE: 5,
-    TURN: 6,
-    CATEGORY: 7,
-    PRODUCT: 8,
-    SERVICE: 9,
-    VACCINE: 10,
-    PAYMENT: 11,
-    CASH: 12,
-    REPORT: 13,
+    CATEGORY: 5,
+    PRODUCT: 6,
+    SUPPLIER: 7,
+    EMPLOYEE: 8,
+    REPORT: 9,
 }
 
 export const PAGE = {
@@ -56,14 +52,6 @@ export const PAGE = {
         PATH: "/detail-customer/:uid",
         NAME: "CustomerDetail"
     },
-    ZONE: {
-        PATH: "/zone",
-        NAME: "Zone"
-    },
-    TURN: {
-        PATH: "/turn",
-        NAME: "Turn"
-    },
     CATEGORY: {
         PATH: "/category",
         NAME: "Category"
@@ -77,32 +65,24 @@ export const PAGE = {
         NAME: "Product"
     },
     PRODUCT_DETAIL: {
-        PATH: "/DetailProduct",
+        PATH: "/detail-product/:uid",
         NAME: "ProductDetail"
     },
-    SERVICE: {
-        PATH: "/service",
-        NAME: "Service"
+    SUPPLIER: {
+        PATH: "/supplier",
+        NAME: "Supplier"
     },
-    SERVICE_DETAIL: {
-        PATH: "/DetailService",
-        NAME: "ServiceDetail"
+    SUPPLIER_DETAIL: {
+        PATH: "/detail-supplier/:uid",
+        NAME: "SupplierDetail"
     },
-    VACCINE: {
-        PATH: "/vaccine",
-        NAME: "Vaccine"
+    EMPLOYEE: {
+        PATH: "/employee",
+        NAME: "Employee"
     },
-    VACCINE_DETAIL: {
-        PATH: "/DetailVaccine",
-        NAME: "VaccineDetail"
-    },
-    PAYMENT: {
-        PATH: "/collection",
-        NAME: "Collection"
-    },
-    CASH: {
-        PATH: "/cash",
-        NAME: "Cash"
+    EMPLOYEE_DETAIL: {
+        PATH: "/detail-employee/:uid",
+        NAME: "EmployeeDetail"
     },
     REPORT: {
         PATH: "/report",

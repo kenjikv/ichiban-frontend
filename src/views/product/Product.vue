@@ -121,10 +121,10 @@ export default {
         headers: [
             {text: 'Nombres', value: 'name'},
             {text: 'Descripción', value: 'description'},
-            {text: 'Precio Unitario', value: 'unit_price'},
+            {text: 'Precio', value: 'price'},
+            {text: 'Stock', value: 'stock'},
             {text: 'Categoria', value: 'category_name'},
-            {text: 'Sub-Categoria', value: 'sub_category_name'},
-            {text: 'Unidad de Medida', value: 'lstAddress.description', sortable: false},
+            {text: 'Proveedor', value: 'supplier_id'},
         ],
         data: [],
     }),
@@ -156,17 +156,9 @@ export default {
             this.pageNumber = this.paginationCurrent
         },
         async loadProducts() {
-            const url = `${config.api.baseURL}/product/v1/products`;
-            const params = {
-              page: this.paginationCurrent,
-              perPage: this.paginationCount,
-              state: 1,
-              search: this.search,
-              orderColumn: this.sortBy,
-              orderValue: this.sortDesc ? 'DESC' : 'ASC'
-            };
-
-            await axios.get(url, { params })
+            const url = `${config.api.baseURL}/products`;
+           
+            await axios.get(url, {  })
               .then(response => {
                 // Handle the response data
                 this.data =  response.data.data;

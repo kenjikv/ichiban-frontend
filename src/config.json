@@ -1,7 +1,7 @@
 {
   "config": {
     "api": {
-      "baseURL": "http://3.13.224.39:8780/WSPerruqueria"
+      "baseURL": "http://localhost:3000/api"
     }
   }
 }

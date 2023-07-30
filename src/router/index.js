@@ -56,16 +56,6 @@ const routes = [
     component: () => import('../views/customer/Detail')
   },
   {
-    path: PAGE.ZONE.PATH,
-    name: PAGE.ZONE.NAME,
-    component: () => import('../views/zone/Zone')
-  },
-  {
-    path: PAGE.TURN.PATH,
-    name: PAGE.TURN.NAME,
-    component: () => import('../views/turn/Turn')
-  },
-  {
     path: PAGE.CATEGORY.PATH,
     name: PAGE.CATEGORY.NAME,
     component: () => import('../views/category/Index')
@@ -86,34 +76,24 @@ const routes = [
     component: () => import('../views/product/DetailProduct')
   },
   {
-    path: PAGE.SERVICE.PATH,
-    name: PAGE.SERVICE.NAME,
+    path: PAGE.SUPPLIER.PATH,
+    name: PAGE.SUPPLIER.NAME,
     component: () => import('../views/service/Service')
   },
   {
-    path: PAGE.SERVICE_DETAIL.PATH,
-    name: PAGE.SERVICE_DETAIL.NAME,
+    path: PAGE.SUPPLIER_DETAIL.PATH,
+    name: PAGE.SUPPLIER_DETAIL.NAME,
     component: () => import('../views/service/DetailService')
   },
   {
-    path: PAGE.VACCINE.PATH,
-    name: PAGE.VACCINE.NAME,
-    component: () => import('../views/vaccine/Vaccine')
+    path: PAGE.EMPLOYEE.PATH,
+    name: PAGE.EMPLOYEE.NAME,
+    component: () => import('../views/service/Service')
   },
   {
-    path: PAGE.VACCINE_DETAIL.PATH,
-    name: PAGE.VACCINE_DETAIL.NAME,
-    component: () => import('../views/vaccine/DetailVaccine')
-  },
-  {
-    path: PAGE.PAYMENT.PATH,
-    name: PAGE.PAYMENT.NAME,
-    component: () => import('../views/payment/Payment')
-  },
-  {
-    path: PAGE.CASH.PATH,
-    name: PAGE.CASH.NAME,
-    component: () => import('../views/cash/Cash')
+    path: PAGE.EMPLOYEE_DETAIL.PATH,
+    name: PAGE.EMPLOYEE_DETAIL.NAME,
+    component: () => import('../views/service/DetailService')
   },
   {
     path: PAGE.REPORT.PATH,

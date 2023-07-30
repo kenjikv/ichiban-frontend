@@ -34,20 +34,6 @@
                 <v-list-item-title class="submenu-title">{{ this.PAGE.CUSTOMER.NAME }}</v-list-item-title>
             </v-list-item>
 
-            <v-list-item :class="this.activeMenu(this.CODE.ZONE)" :to="this.PAGE.ZONE.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.ZONE.NAME }}</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item :class="this.activeMenu(this.CODE.TURN)" :to="this.PAGE.TURN.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.TURN.NAME }}</v-list-item-title>
-            </v-list-item>
-
             <v-list-item :class="this.activeMenu(this.CODE.CATEGORY)" :to="this.PAGE.CATEGORY.PATH" link="link">
                 <v-list-item-icon>
                     <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
@@ -62,32 +48,18 @@
                 <v-list-item-title class="submenu-title">{{ this.PAGE.PRODUCT.NAME }}</v-list-item-title>
             </v-list-item>
 
-            <v-list-item :class="this.activeMenu(this.CODE.SERVICE)" :to="this.PAGE.SERVICE.PATH" link="link">
+            <v-list-item :class="this.activeMenu(this.CODE.PRODUCT)" :to="this.PAGE.SUPPLIER.PATH" link="link">
                 <v-list-item-icon>
                     <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.SERVICE.NAME }}</v-list-item-title>
+                <v-list-item-title class="submenu-title">{{ this.PAGE.SUPPLIER.NAME }}</v-list-item-title>
             </v-list-item>
 
-            <v-list-item :class="this.activeMenu(this.CODE.VACCINE)" :to="this.PAGE.VACCINE.PATH" link="link">
+            <v-list-item :class="this.activeMenu(this.CODE.PRODUCT)" :to="this.PAGE.EMPLOYEE.PATH" link="link">
                 <v-list-item-icon>
                     <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.VACCINE.NAME }}</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item :class="this.activeMenu(this.CODE.PAYMENT)" :to="this.PAGE.PAYMENT.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.PAYMENT.NAME }}</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item :class="this.activeMenu(this.CODE.CASH)" :to="this.PAGE.CASH.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.CASH.NAME }}</v-list-item-title>
+                <v-list-item-title class="submenu-title">{{ this.PAGE.EMPLOYEE.NAME }}</v-list-item-title>
             </v-list-item>
 
             <v-list-item :class="this.activeMenu(this.CODE.REPORT)" :to="this.PAGE.REPORT.PATH" link="link">
