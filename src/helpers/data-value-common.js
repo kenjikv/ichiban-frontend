@@ -68,6 +68,10 @@ export const PAGE = {
         PATH: "/detail-product/:id",
         NAME: "ProductDetail"
     },
+    PRODUCT_NEW: {
+        PATH: "/detail-product",
+        NAME: "ProductDetail"
+    },
     SUPPLIER: {
         PATH: "/supplier",
         NAME: "Supplier"

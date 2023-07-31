@@ -47,6 +47,33 @@
                       </v-text-field>
                   </v-col>
                 </v-row>
+                <v-row class="px-3 mx-1">
+                    <v-col cols="6">
+                        <v-select
+                                :items="categories"
+                                item-value="id"
+                                item-text="name"
+                                v-model="data.categoryId"
+                                label="Categoría"
+                                outlined
+                                color="primary"
+                                hide-details="auto">
+                        </v-select>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-select
+                                :items="suppliers"
+                                item-value="id"
+                                item-text="name"
+                                v-model="data.supplierId"
+                                label="Proveedor"
+                                outlined
+                                color="primary"
+                                hide-details="auto">
+                        </v-select>
+                    </v-col>
+                </v-row>
+
                 <v-card-actions class="pa-4 d-flex align-center justify-end">
                   <v-btn class="mx-1 base-btn base-btn_save_product elevation-0" @click="onClickSave">Guardar</v-btn>
                   <v-btn class="mx-1 base-btn base-btn_cancel elevation-0" @click="onClickCancel">Cancelar</v-btn>
@@ -72,38 +99,78 @@ export default {
           name: '',
           description: '',
           price: 0,
-          stock: 0, 
+          stock: 0,
+          categoryId: null,
+          supplierId: null,
       },
+      categories: [],
+      suppliers: []
   }),
   methods: {
-      async loadProduct() {
-          this.$root.$emit('loader-show')
-          const url = `${config.api.baseURL}/products/${this.$route.params.id}`
-          console.log(url)
-          await axios.get(url)
+      async loadData() {
+          let self = this;
+
+          self.$root.$emit('loader-show')
+
+          const promiseCategories = axios.get(`${config.api.baseURL}/categories`)
+          const promiseSuppliers = axios.get(`${config.api.baseURL}/suppliers`)
+
+          const promises = [promiseCategories, promiseSuppliers];
+
+          if(self.$route.params.id) {
+              const promiseProducts = axios.get(`${config.api.baseURL}/products/${this.$route.params.id}`)
+              promises.unshift(promiseProducts)
+          }
+
+          Promise.all(promises)
+              .then(function (values) {
+                  if (values.length === 3) {
+                      self.data = values[0].data;
+                      self.categories = values[1].data;
+                      self.suppliers = values[2].data;
+                  } else {
+                      self.categories = values[0].data;
+                      self.suppliers = values[1].data;
+                  }
+              })
+              .catch(err => {
+                  console.log("Product", err);
+              })
+              .finally(function () {
+                  self.$root.$emit('loader-hide')
+              });
+      },
+      async onClickSave() {
+          const self = this;
+          self.$root.$emit('loader-show');
+
+          let url = `${config.api.baseURL}/products/`;
+          let method = 'post';
+          let sendData = {...self.data};
+
+          // Si data.id no es 0, entonces estamos actualizando un producto existente
+          if (self.data.id !== 0) {
+              url += `${self.data.id}/`;
+              method = 'put';
+          } else {
+              // Si estamos insertando hay que quitar el campo id
+              delete sendData.id;
+          }
+
+          console.log(sendData)
+          axios[method](url, sendData)
               .then(response => {
-                  this.data = response.data
-                  console.log(this.data)
+                  console.error(response);
+                  self.$router.push({
+                      path: PAGE.PRODUCT.PATH,
+                  })
               })
               .catch(error => {
                   console.error(error);
               })
               .finally(() => {
-                  this.$root.$emit('loader-hide')
-              })
-      },
-      async onClickSave() {
-        this.$root.$emit('loader-show');
-        const url = `${config.api.baseURL}/products/`;
-        try {
-          const response = await axios.post(url, this.data);
-          console.log(response.data); 
-        } catch (error) {
-          console.error(error);
-        
-        } finally {
-          this.$root.$emit('loader-hide');
-        }
+                  self.$root.$emit('loader-hide');
+              });
       },
       onClickCancel() {
           this.$router.push({
@@ -112,7 +179,7 @@ export default {
       }
   },
   created() {
-      this.loadProduct()
+      this.loadData();
   }
 }
 </script>

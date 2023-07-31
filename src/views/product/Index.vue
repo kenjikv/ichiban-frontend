@@ -26,31 +26,6 @@
                 <v-row class="ma-0">
                     <v-col class="pa-0" cols="12">
                         <v-container fluid>
-                            <v-expansion-panels>
-                                <v-expansion-panel>
-                                    <v-expansion-panel-header class="pa-0">
-                                        <v-row class="ma-0 px-2">
-                                            <v-col class="pa-0 d-flex align-center" cols="10"><span
-                                                    class="spn-search-title">Busqueda avanzada：</span>
-                                            </v-col>
-                                            <v-col class="pa-0 d-flex align-center justify-end" cols="2">
-                                                <v-btn class="mx-1 base-btn base-btn_search elevation-0"
-                                                       @click="loadProducts">Buscar
-                                                </v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-expansion-panel-header>
-                                    <v-expansion-panel-content class="pa-0">
-                                        <v-row class="ma-0">
-                                            <v-col class="pa-1 d-flex align-center" cols="12">
-                                                <v-text-field label="Nombre, Codigo"
-                                                              v-model="search" outlined="outlined" dense="dense"
-                                                              hide-details="hide-details"></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                            </v-expansion-panels>
                             <v-data-table
                                     class="my-4"
                                     :headers="headers"
@@ -63,6 +38,11 @@
                                     @update:sort-desc="updateSortDesc"
                                     @click:row="onClickRow"
                             >
+                                <template v-slot:item.actions="{ item }">
+                                    <v-icon small class="mr-2" @click.stop="deleteItem(item)">
+                                        mdi-delete
+                                    </v-icon>
+                                </template>
                             </v-data-table>
                             
                         </v-container>
@@ -91,6 +71,7 @@
 </template>
 
 <script>
+
 import PLoader from "@/components/PLoader";
 import {PAGE} from "@/helpers/data-value-common";
 import axios from "axios";
@@ -114,6 +95,7 @@ export default {
             {text: 'Descripción', value: 'description'},
             {text: 'Precio', value: 'price'},
             {text: 'Stock', value: 'stock'},
+            {text: 'Acciones', value: 'actions', sortable: false},
         ],
         data: [],
     }),
@@ -149,20 +131,34 @@ export default {
            
             await axios.get(url, {  })
               .then(response => {
-                // Handle the response data
                 this.data =  response.data;
-                this.pageNumberTextField = 0;//response.data.total;
-                // console.log(response.data.total)
+                this.pageNumberTextField = 0;
               })
               .catch(error => {
-                // Handle the error
                 console.error(error);
               });   
 
         },
+        async deleteItem(item) {
+            const self = this;
+            const confirmed = window.confirm(`¿Estás seguro de que deseas eliminar el producto ${item.name}?`);
+            if (confirmed) {
+                self.$root.$emit('loader-show');
+                await axios.delete(`${config.api.baseURL}/products/${item.id}`)
+                    .then(response => {
+                        self.loadProducts();
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
+                    .finally(function () {
+                        self.$root.$emit('loader-hide');
+                    });
+            }
+        },
         onClickNewProduct() {
             this.$router.push({
-            path: PAGE.PRODUCT_DETAIL.PATH,
+                path: PAGE.PRODUCT_NEW.PATH,
             })
         },
         

@@ -138,7 +138,7 @@ export default {
             this.paginationCurrent = number
             this.loadData()
         },
-        async loadCustomers() {
+        async loadData() {
             const url = `${config.api.baseURL}/customers`;
 
             await axios.get(url, {  })
@@ -162,7 +162,7 @@ export default {
 
     },
     mounted(){
-        this.loadCustomers();
+        this.loadData();
     },
 }
 </script>

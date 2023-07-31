@@ -76,6 +76,11 @@ const routes = [
     component: () => import('../views/product/Detail')
   },
   {
+    path: PAGE.PRODUCT_NEW.PATH,
+    name: PAGE.PRODUCT_NEW.NAME,
+    component: () => import('../views/product/Detail')
+  },
+  {
     path: PAGE.SUPPLIER.PATH,
     name: PAGE.SUPPLIER.NAME,
     component: () => import('../views/service/Service')
