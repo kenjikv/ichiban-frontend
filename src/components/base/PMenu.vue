@@ -6,27 +6,6 @@
         </v-list-item>
 
         <v-list class="menu-list">
-            <v-list-item :class="this.activeMenu(this.CODE.DASHBOARD)" :to="this.PAGE.DASHBOARD.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.DASHBOARD.NAME }}</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item :class="this.activeMenu(this.CODE.USER)" :to="this.PAGE.USER.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-account-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.USER.NAME }}</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item :class="this.activeMenu(this.CODE.ROLE)" :to="this.PAGE.ROLE.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.ROLE.NAME }}</v-list-item-title>
-            </v-list-item>
-
             <v-list-item :class="this.activeMenu(this.CODE.CUSTOMER)" :to="this.PAGE.CUSTOMER.PATH" link="link">
                 <v-list-item-icon>
                     <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
@@ -34,39 +13,18 @@
                 <v-list-item-title class="submenu-title">{{ this.PAGE.CUSTOMER.NAME }}</v-list-item-title>
             </v-list-item>
 
-            <v-list-item :class="this.activeMenu(this.CODE.CATEGORY)" :to="this.PAGE.CATEGORY.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.CATEGORY.NAME }}</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item :class="this.activeMenu(this.CODE.PRODUCT)" :to="this.PAGE.PRODUCT.PATH" link="link">
+             <v-list-item :class="this.activeMenu(this.CODE.PRODUCT)" :to="this.PAGE.PRODUCT.PATH" link="link">
                 <v-list-item-icon>
                     <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title class="submenu-title">{{ this.PAGE.PRODUCT.NAME }}</v-list-item-title>
             </v-list-item>
 
-            <v-list-item :class="this.activeMenu(this.CODE.PRODUCT)" :to="this.PAGE.SUPPLIER.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.SUPPLIER.NAME }}</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item :class="this.activeMenu(this.CODE.PRODUCT)" :to="this.PAGE.EMPLOYEE.PATH" link="link">
+            <v-list-item :class="this.activeMenu(this.CODE.EMPLOYEE)" :to="this.PAGE.EMPLOYEE.PATH" link="link">
                 <v-list-item-icon>
                     <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title class="submenu-title">{{ this.PAGE.EMPLOYEE.NAME }}</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item :class="this.activeMenu(this.CODE.REPORT)" :to="this.PAGE.REPORT.PATH" link="link">
-                <v-list-item-icon>
-                    <v-icon class="icon-item">mdi-view-dashboard-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="submenu-title">{{ this.PAGE.REPORT.NAME }}</v-list-item-title>
             </v-list-item>
         </v-list>
         <template>

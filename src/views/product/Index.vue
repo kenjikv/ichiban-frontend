@@ -123,8 +123,6 @@ export default {
             {text: 'Descripción', value: 'description'},
             {text: 'Precio', value: 'price'},
             {text: 'Stock', value: 'stock'},
-            {text: 'Categoria', value: 'category_name'},
-            {text: 'Proveedor', value: 'supplier_id'},
         ],
         data: [],
     }),
@@ -161,9 +159,9 @@ export default {
             await axios.get(url, {  })
               .then(response => {
                 // Handle the response data
-                this.data =  response.data.data;
-                this.pageNumberTextField = response.data.total;
-                console.log(response.data.total)
+                this.data =  response.data;
+                this.pageNumberTextField = 0;//response.data.total;
+                // console.log(response.data.total)
               })
               .catch(error => {
                 // Handle the error

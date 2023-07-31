@@ -7,7 +7,7 @@
                         <span class="title-txt">Clientes</span>
                     </v-col>
                     <v-col class="d-flex align-center justify-end"
-                           @click="onClickNewCustomer"
+                           @click="onClickNew"
                            cols="2"
                     >
                         <v-btn class="mx-1 base-btn_create_customer elevation-0">
@@ -31,11 +31,11 @@
                                     <v-expansion-panel-header class="pa-0">
                                         <v-row class="ma-0 px-2">
                                             <v-col class="pa-0 d-flex align-center" cols="10"><span
-                                                    class="spn-search-title">Busqueda avanzada：</span>
+                                                class="spn-search-title">Busqueda avanzada：</span>
                                             </v-col>
                                             <v-col class="pa-0 d-flex align-center justify-end" cols="2">
                                                 <v-btn class="mx-1 base-btn base-btn_search elevation-0"
-                                                       @click="loadCustomers">Buscar
+                                                       @click="loadData">Buscar
                                                 </v-btn>
                                             </v-col>
                                         </v-row>
@@ -43,7 +43,7 @@
                                     <v-expansion-panel-content class="pa-0">
                                         <v-row class="ma-0">
                                             <v-col class="pa-1 d-flex align-center" cols="12">
-                                                <v-text-field label="Nombre, teléfono o correo electrónico"
+                                                <v-text-field label="Nombre, Codigo"
                                                               v-model="search" outlined="outlined" dense="dense"
                                                               hide-details="hide-details"></v-text-field>
                                             </v-col>
@@ -52,16 +52,16 @@
                                 </v-expansion-panel>
                             </v-expansion-panels>
                             <v-data-table
-                                    class="my-4"
-                                    :headers="headers"
-                                    :items="data"
-                                    :items-per-page="10"
-                                    :page.sync="paginationCurrent"
-                                    :sort-by.sync="sortBy"
-                                    :sort-desc.sync="sortDesc"
-                                    hide-default-footer
-                                    @update:sort-desc="updateSortDesc"
-                                    @click:row="onClickRow"
+                                class="my-4"
+                                :headers="headers"
+                                :items="data"
+                                :items-per-page="10"
+                                :page.sync="paginationCurrent"
+                                :sort-by.sync="sortBy"
+                                :sort-desc.sync="sortDesc"
+                                hide-default-footer
+                                @update:sort-desc="updateSortDesc"
+                                @click:row="onClickRow"
                             >
                             </v-data-table>
 
@@ -70,16 +70,26 @@
                 </v-row>
                 <v-divider/>
                 <v-row class="ma-4">
-                  
-                    <v-col class="pa-0 d-flex align-center justify-center" cols="12">
+                    <v-col cols="8">
+                    </v-col>
+                    <v-col class="pa-0 d-flex align-center justify-start" cols="4">
                         <v-pagination
-                                v-model="paginationCurrent"
-                                :length="paginationCount"
-                                :total-visible="6"
-                                color="#004593"
-                                @input="changePagination"
+                            v-model="paginationCurrent"
+                            :length="paginationCount"
+                            :total-visible="3"
+                            color="#004593"
+                            @input="changePagination"
                         >
                         </v-pagination>
+                        <v-text-field
+                            v-model="pageNumberTextField"
+                            class="ml-2 page-txt-field"
+                            id="pageNumberTextField"
+                            type="number"
+                            dense
+                            outlined
+                            hide-details
+                            @keydown.enter="onPressPagingKeyEnter"/>
                     </v-col>
                 </v-row>
             </v-card-text>
@@ -94,7 +104,6 @@ import PLoader from "@/components/PLoader";
 import {PAGE} from "@/helpers/data-value-common";
 import axios from "axios";
 import {config} from '@/config.json'
-import * as Utils from "@/helpers/utils";
 
 export default {
     components: {
@@ -103,7 +112,6 @@ export default {
     data: () => ({
         paginationCurrent: 1,
         paginationCount: 10,
-        itemsPerPage: 10,
         pageNumber: 1,
 
         search: '',
@@ -111,125 +119,115 @@ export default {
         sortDesc: true,
         pageNumberTextField: 0,
         headers: [
-            {text: 'Nombres', value: 'name'},
-            {text: 'Apellidos', value: 'lastname'},
-            {text: 'Dirección', value: 'lstAddress.description'},
-            {text: 'Mascotas', value: ''},
-            {text: 'Celular', value: 'phone'},
-            {text: 'Estado', value: 'state', sortable: false},
+            {text: 'Primer nombre', value: 'first_name'},
+            {text: 'Segundo nombre', value: 'middle_name'},
+            {text: 'Apellido', value: 'last_name'},
+            {text: 'Genero', value: 'gender'},
+            {text: 'Salario', value: 'salary'},
+            {text: 'Teléfono', value: 'phone'},
+            {text: 'Correo Electrónico', value: 'email'},
         ],
         data: [],
     }),
     methods: {
         updateSortDesc() {
-            this.loadCustomers()
+            this.loadData()
         },
         onClickRow(value) {
             let e = this.data.find(item => item.id === value.id)
             if (e && e.id !== undefined) {
                 this.$router.push({
-                    name: PAGE.CUSTOMER_DETAIL.NAME,
-                    params: {uid: value.uid}
+                    name: PAGE.PRODUCT_DETAIL.PATH,
+                    params: {id: value.id}
                 })
                 return
             }
         },
         changePagination(number) {
             this.paginationCurrent = number
-            this.loadCustomers()
+            this.loadData()
         },
         onPressPagingKeyEnter() {
             let input = document.getElementById("pageNumberTextField")
             let val = parseInt(input.value)
             if (val > 0 && val <= this.paginationCount) {
                 this.paginationCurrent = val
-                this.loadCustomers()
+                this.loadData()
             }
             this.pageNumber = this.paginationCurrent
         },
-        async loadCustomers() {
-            this.$root.$emit('loader-show')
-            const url = `${config.api.baseURL}/customer/v1/customers`;
-            const params = {
-                page: this.paginationCurrent,
-                perPage: this.itemsPerPage,
-                state: 1,
-                search: this.search,
-                orderColumn: this.sortBy,
-                orderValue: this.sortDesc ? 'DESC' : 'ASC'
-            };
+        async loadData() {
+            const url = `${config.api.baseURL}/customers`;
 
-            await axios.get(url, {params})
+            await axios.get(url, {  })
                 .then(response => {
                     // Handle the response data
-                    this.data = response.data.data;
-                    this.paginationCount= response.data.lastPage;
+                    this.data =  response.data;
+                    this.pageNumberTextField = 0;//response.data.total;
+                    // console.log(response.data.total)
                 })
                 .catch(error => {
                     // Handle the error
                     console.error(error);
-                })
-                .finally(() => {
-                    this.$root.$emit('loader-hide')
-                })
+                });
+
         },
-        onClickNewCustomer(value) {
+        onClickNew() {
             this.$router.push({
-                path: PAGE.CUSTOMER_DETAIL.PATH,
+                path: PAGE.EMPLOYEE_DETAIL.PATH,
             })
         },
 
     },
-    mounted() {
-        this.loadCustomers();
+    mounted(){
+        this.loadData();
     },
-
 }
 </script>
 
 <style lang="scss" scoped>
 .match-parent {
-  height: 90%;
+    height: 90%;
 }
 
 .spn-search-title {
-  font-family: var(--font-secondary);
-  color: var(--color-base-sub);
-  font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
+    font-family: var(--font-secondary);
+    color: var(--color-base-sub);
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 .base-btn {
-  font-family: var(--font-secondary);
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 36px;
+    font-family: var(--font-secondary);
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 36px;
 
-  &_create_customer {
-    color: var(--color-white);
-    background-color: var(--color-main) !important;
-    border: 1px solid var(--color-main) !important;
-  }
+    &_create_customer {
+        color: var(--color-white);
+        background-color: var(--color-main) !important;
+        border: 1px solid var(--color-main) !important;
+    }
 
-  &_search {
-    color: var(--color-white);
-    background-color: var(--color-green) !important;
-    border: 1px solid var(--color-green) !important;
-  }
+    &_search {
+        color: var(--color-white);
+        background-color: var(--color-green) !important;
+        border: 1px solid var(--color-green) !important;
+    }
 }
 
 .title-txt {
-  font-family: var(--font-secondary);
-  font-size: 32px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  color: var(--color-base-sub);
+    font-family: var(--font-secondary);
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    color: var(--color-base-sub);
 }
 
 .page-txt-field {
-  font-size: 14px;
+    font-size: 14px;
 }
 </style>
