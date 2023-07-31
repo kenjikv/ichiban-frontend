@@ -2,7 +2,7 @@ name: ichiban-frontend
 on:
   push:
     branches:
-      - main
+      - dev
 jobs:
   sonarcloud:
     name: SonarCloud
