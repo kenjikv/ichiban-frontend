@@ -15,31 +15,46 @@
                 <v-row class="px-3 mx-1">                 
                   <v-col cols="6">                
                       <v-text-field outlined color="primary" hide-details="auto"
-                      v-model="data.name"
-                      label="Nombres"
+                      v-model="data.first_name"
+                      label="Primer Nombre"
                       type="text"
-                      placeholder="Nombres del cliente">
+                      placeholder="Primer Nombre">
                       </v-text-field>
                   </v-col>
                   <v-col cols="6">
                       <v-text-field outlined color="primary" hide-details="auto"
-                      v-model="data.lastname"
-                      label="Apellidos"
+                      v-model="data.middle_name"
+                      label="Segundo Nombre"
                       type="text"
-                      placeholder="Apellidos del cliente">
+                      placeholder="Segundo Nombre">
                       </v-text-field>
                   </v-col>
                 </v-row>
-                <v-card-subtitle class="pl-6 ma-1">
-                    <span>Datos de Contacto</span>
-                </v-card-subtitle> 
-                <v-row class="px-3 ma-1">
+                <v-row class="px-3 mx-1">                 
+                  <v-col cols="6">                
+                      <v-text-field outlined color="primary" hide-details="auto"
+                      v-model="data.last_name"
+                      label="Apellido"
+                      type="text"
+                      placeholder="Apellido">
+                      </v-text-field>
+                  </v-col>
                   <v-col cols="6">
                       <v-text-field outlined color="primary" hide-details="auto"
-                      v-model="data.mail"
-                      label="Email"
-                      type="email"
-                      placeholder="johndoe@email.com">
+                      v-model="data.gender"
+                      label="Genero"
+                      type="text"
+                      placeholder="Genero">
+                      </v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row class="px-3 mx-1">
+                  <v-col cols="6">
+                      <v-text-field outlined color="primary" hide-details="auto"
+                      v-model="data.salary"
+                      label="Salario"
+                      type="number"
+                      placeholder="2500">
                       </v-text-field>
                   </v-col>
                   <v-col cols="6">
@@ -54,35 +69,15 @@
                 <v-row class="px-3 ma-1">
                     <v-col cols="6">
                       <v-text-field outlined color="primary" hide-details="auto"
-                      v-model="data.frequence"
-                      label="Frecuencia"
-                      type="text"
-                      placeholder="0">
+                      v-model="data.email"
+                      label="Email"
+                      type="email"
+                      placeholder="johndoe@email.com">
                       </v-text-field>
                   </v-col>
                   <v-col cols="6">
-                      <v-text-field outlined color="primary" hide-details="auto"
-                      v-if="this.data.lstAddress && this.data.lstAddress.length > 0"
-                      v-model="this.data.lstAddress[0].description"
-                      label="Dirección"
-                      type="text"
-                      placeholder="av. siempre viva">
-                      </v-text-field>
+                      
                   </v-col>
-                </v-row>
-                <v-card-subtitle class="pl-6 ma-1">
-                    <span>Datos de Mascotas</span>
-                </v-card-subtitle> 
-                <v-row class="px-3 ma-1">
-                    <v-col cols="6">
-                      <v-text-field outlined color="primary" hide-details="auto"
-                      v-if="this.data.lstPets && this.data.lstPets.length > 0"
-                      v-model="this.data.lstPets[0].name"
-                      label="Nombre"
-                      type="text"
-                      placeholder="Salchicha">
-                      </v-text-field>
-                  </v-col>                 
                 </v-row>
                 <v-card-actions class="pa-4 d-flex align-center justify-end">
                   <v-btn class="mx-1 base-btn base-btn_save_customer elevation-0">Guardar</v-btn>

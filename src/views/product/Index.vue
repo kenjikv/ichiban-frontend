@@ -72,7 +72,7 @@
                 <v-row class="ma-4">
                     <v-col cols="8">
                     </v-col>
-                    <v-col class="pa-0 d-flex align-center justify-start" cols="4">
+                    <v-col class="pa-0 d-flex align-center justify-center" cols="12">
                         <v-pagination
                                 v-model="paginationCurrent"
                                 :length="paginationCount"
@@ -81,15 +81,6 @@
                                 @input="changePagination"
                         >
                         </v-pagination>
-                        <v-text-field
-                                v-model="pageNumberTextField"
-                                class="ml-2 page-txt-field"
-                                id="pageNumberTextField"
-                                type="number"
-                                dense
-                                outlined
-                                hide-details
-                                @keydown.enter="onPressPagingKeyEnter"/>
                     </v-col>
                 </v-row>
             </v-card-text>
@@ -134,7 +125,7 @@ export default {
             let e = this.data.find(item => item.id === value.id)
             if (e && e.id !== undefined) {
                 this.$router.push({
-                    name: PAGE.PRODUCT_DETAIL.PATH,
+                    name: PAGE.PRODUCT_DETAIL.NAME,
                     params: {id: value.id}
                 })
                 return

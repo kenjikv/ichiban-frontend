@@ -65,7 +65,7 @@ export const PAGE = {
         NAME: "Product"
     },
     PRODUCT_DETAIL: {
-        PATH: "/detail-product/:uid",
+        PATH: "/detail-product/:id",
         NAME: "ProductDetail"
     },
     SUPPLIER: {

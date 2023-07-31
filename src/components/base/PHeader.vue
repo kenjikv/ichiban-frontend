@@ -21,7 +21,7 @@
     </v-btn>
     <v-toolbar-title
       class="hidden-sm-and-down font-weight-light"
-      text="$route.name"
+      v-text="$route.name"
     />
     <v-divider></v-divider>
     <v-btn
