@@ -16,3 +16,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: my-custom-directory
+          args: >
+            -Dsonar.organization=kenjikv
+            -Dsonar.projectKey=kenjikv_ichiban-frontend
