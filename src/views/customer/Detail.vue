@@ -51,32 +51,37 @@
                 <v-row class="px-3 mx-1">
                   <v-col cols="6">
                       <v-text-field outlined color="primary" hide-details="auto"
-                      v-model="data.salary"
-                      label="Salario"
+                      v-model="data.phone"
+                      label="Celular"
                       type="number"
-                      placeholder="2500">
+                      placeholder="78522785">
                       </v-text-field>
                   </v-col>
                   <v-col cols="6">
                       <v-text-field outlined color="primary" hide-details="auto"
-                      v-model="data.phone"
-                      label="Celular"
-                      type="number"
-                      placeholder="77029999">
+                      v-model="data.address"
+                      label="Dirección"
+                      type="text"
+                      placeholder="av. siempre viva">
                       </v-text-field>
                   </v-col>
                 </v-row>
                 <v-row class="px-3 ma-1">
                     <v-col cols="6">
                       <v-text-field outlined color="primary" hide-details="auto"
+                      v-model="data.city"
+                      label="Ciudad"
+                      type="text"
+                      placeholder="johndoe@email.com">
+                      </v-text-field>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-text-field outlined color="primary" hide-details="auto"
                       v-model="data.email"
                       label="Email"
                       type="email"
                       placeholder="johndoe@email.com">
                       </v-text-field>
-                  </v-col>
-                  <v-col cols="6">
-                      
                   </v-col>
                 </v-row>
                 <v-card-actions class="pa-4 d-flex align-center justify-end">
@@ -101,30 +106,28 @@ export default {
     data: () => ({
         data: {
             id: 0,
-            name: '',
-            lastname: '',
-            mail: '',
-            country: '',
+            first_name: '',
+            middle_name: '',
+            last_name: '',
+            gender: '',
             phone: '',
-            frequence: 0,
-            state: 1,
-            uid: '',
-            register_date: '',
-            update_date: '',
-            id_user_update: 0,
-            addresses:'',
-            lstAddress: [{description:"Direccion Cliente"}],
-            lstPets: [{name:"Nombre Mascota"}]
+            address: '',
+            city: '',
+            postal_code: '',
+            email: '',
+            password: '',
+            created_at: '',
+            update_at: '',    
         },
-        state: []
     }),
     methods: {
         async loadCustomer() {
             this.$root.$emit('loader-show')
-            const url = `${config.api.baseURL}/customer/v1/customer/${this.$route.params.uid}`
+            const url = `${config.api.baseURL}/customers/${this.$route.params.id}`
             await axios.get(url)
                 .then(response => {
-                    this.data = response.data.data
+                    this.data = response.data
+                    console.log(this.data)
                 })
                 .catch(error => {
                     console.error(error);
