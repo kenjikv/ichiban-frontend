@@ -2,7 +2,7 @@
   <v-container fluid fill-height class="loginOverlay">
     <div style="position:absolute;height:100%;width:100%;">
         <v-img 
-          src="@/assets/fondo1.png"
+          src="@/assets/background.jpg"
           height="100%"
           aspect-ratio="1.5"   
           cover>

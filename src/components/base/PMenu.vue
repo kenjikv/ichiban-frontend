@@ -59,11 +59,12 @@ export default {
         clickedProfile() {
         },
         clickedLogout() {
-            localStorage.removeItem("user")
+            localStorage.removeItem("mail")
             this.$router.push({name: PAGE.BASE.NAME});
         },
         showMenu() {
             this.isShow = true
+            this.showUserName()
         },
         hideMenu() {
             this.isShow = false
@@ -77,7 +78,7 @@ export default {
     },
     computed: {
         showUserName() {
-            return "User Name"
+            return localStorage.getItem("mail").toString();
         },
     },
     created() {

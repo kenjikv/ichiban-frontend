@@ -56,6 +56,11 @@ const routes = [
     component: () => import('../views/customer/Detail')
   },
   {
+    path: PAGE.CUSTOMER_NEW.PATH,
+    name: PAGE.CUSTOMER_NEW.NAME,
+    component: () => import('../views/customer/Detail')
+  },
+  {
     path: PAGE.CATEGORY.PATH,
     name: PAGE.CATEGORY.NAME,
     component: () => import('../views/category/Index')
@@ -94,6 +99,11 @@ const routes = [
     path: PAGE.EMPLOYEE.PATH,
     name: PAGE.EMPLOYEE.NAME,
     component: () => import('../views/employee/Index')
+  },
+  {
+    path: PAGE.EMPLOYEE_NEW.PATH,
+    name: PAGE.EMPLOYEE_NEW.NAME,
+    component: () => import('../views/employee/Detail')
   },
   {
     path: PAGE.EMPLOYEE_DETAIL.PATH,

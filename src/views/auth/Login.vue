@@ -1,11 +1,11 @@
 <template>
-    <v-container fluid fill-height class="loginOverlay">
-        <div style="position:absolute;height:100%;width:100%;">
+    <v-container fluid fill-height class="loginOverlay" style="height: 100vh; width: 100vw; margin: 0; padding: 0;">
+        <div style="position:absolute;top:0;left:0;height:100%;width:100%;">
             <v-img
-                    src="@/assets/fondo1.png"
-                    height="100%"
-                    aspect-ratio="1.5"
-                    cover>
+                src="@/assets/background.jpg"
+                cover
+                height="100%"
+                width="100%">
             </v-img>
         </div>
         <v-row>
@@ -40,7 +40,6 @@
                                     :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                                     :rules="rulesPassword"
                                     :type="showPass ? 'text' : 'password'"
-                                    hint="La contraseña debe contener al menos 8 caracteres"
                                     v-model="password"
                                     @click:append="showPass = !showPass"
                             ></v-text-field>
@@ -54,21 +53,6 @@
                             Inicio de sesión
                         </v-btn>
                     </v-card-actions>
-                    <v-card-subtitle class="text-center">¿Olvidaste tu contraseña?
-                        <v-btn
-                                color="primary"
-                                outlined
-                                small
-                                rounded
-                                @click="showForgot()">
-                            <v-icon
-                                    small
-                                    aria-hidden="true">
-                                mdi-account
-                            </v-icon>
-                            Restablecela Aquí
-                        </v-btn>
-                    </v-card-subtitle>
                 </v-card>
             </v-col>
         </v-row>
@@ -95,30 +79,31 @@ export default {
             v => /.+@.+/.test(v) || 'E-mail debe ser valido',
         ],
 
-        email: 'admin@gmail.com',
-        password: '123',
+        email: '',
+        password: '',
     }),
     methods: {
         showForgot() {
             this.$router.push({name: PAGE.FORGOT.NAME});
             return;
         },
-        showDashboard(user) {
-            localStorage.setItem("user", JSON.stringify(user));
-            this.$router.push({name: PAGE.BASE.NAME});
+        showDashboard() {
+            localStorage.setItem("mail", JSON.stringify(this.email));
+            this.$router.push({name: PAGE.CUSTOMER.NAME});
+            this.$root.$emit('p-menu-show');
         },
         login() {
             let self = this;
 
             let user = {
-                "mail": self.email,
+                "email": self.email,
                 "password": self.password,
             };
 
             self.$root.$emit("app-show-loader");
             axios({
                 method: 'post',
-                url: `${config.api.baseURL}/user/v1/login`,
+                url: `${config.api.baseURL}/api/login`,
                 data: Utils.toJSON(user),
                 headers: {'Content-Type': 'application/json'}
             })
@@ -129,7 +114,7 @@ export default {
                         return;
                     }
 
-                    self.showDashboard(response.data.data);
+                    self.showDashboard();
                 })
                 .catch((err) => {
                     console.log('Login', err);
@@ -154,5 +139,8 @@ export default {
 </script>
 
 <style>
-
+html, body {
+    margin: 0;
+    padding: 0;
+}
 </style>

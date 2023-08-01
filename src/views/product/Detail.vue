@@ -160,7 +160,6 @@ export default {
           console.log(sendData)
           axios[method](url, sendData)
               .then(response => {
-                  console.error(response);
                   self.$router.push({
                       path: PAGE.PRODUCT.PATH,
                   })

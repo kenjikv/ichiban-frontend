@@ -7,7 +7,7 @@
                         <span class="title-txt">Productos</span>
                     </v-col>
                     <v-col class="d-flex align-center justify-end"
-                           @click="onClickNewProduct"
+                           @click="onClickNew"
                            cols="2"
                     >
                         <v-btn class="mx-1 base-btn_create_customer elevation-0">
@@ -101,7 +101,7 @@ export default {
     }),
     methods: {
         updateSortDesc() {
-            this.loadProducts()
+            this.loadData()
         },
         onClickRow(value) {
             let e = this.data.find(item => item.id === value.id)
@@ -115,7 +115,7 @@ export default {
         },
         changePagination(number) {
             this.paginationCurrent = number
-            this.loadProducts()
+            this.loadData()
         },
         onPressPagingKeyEnter() {
             let input = document.getElementById("pageNumberTextField")
@@ -126,7 +126,9 @@ export default {
             }
             this.pageNumber = this.paginationCurrent
         },
-        async loadProducts() {
+        async loadData() {
+            let self = this;
+            self.$root.$emit('loader-show');
             const url = `${config.api.baseURL}/products`;
            
             await axios.get(url, {  })
@@ -136,8 +138,10 @@ export default {
               })
               .catch(error => {
                 console.error(error);
-              });   
-
+              })
+                .finally(() => {
+                    self.$root.$emit('loader-hide');
+                });
         },
         async deleteItem(item) {
             const self = this;
@@ -146,7 +150,7 @@ export default {
                 self.$root.$emit('loader-show');
                 await axios.delete(`${config.api.baseURL}/products/${item.id}`)
                     .then(response => {
-                        self.loadProducts();
+                        self.loadData();
                     })
                     .catch(err => {
                         console.error(err);
@@ -156,7 +160,7 @@ export default {
                     });
             }
         },
-        onClickNewProduct() {
+        onClickNew() {
             this.$router.push({
                 path: PAGE.PRODUCT_NEW.PATH,
             })
@@ -164,7 +168,7 @@ export default {
         
     },
     mounted(){
-        this.loadProducts();
+        this.loadData();
     },
 }
 </script>
