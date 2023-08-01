@@ -26,31 +26,6 @@
                 <v-row class="ma-0">
                     <v-col class="pa-0" cols="12">
                         <v-container fluid>
-                            <v-expansion-panels>
-                                <v-expansion-panel>
-                                    <v-expansion-panel-header class="pa-0">
-                                        <v-row class="ma-0 px-2">
-                                            <v-col class="pa-0 d-flex align-center" cols="10"><span
-                                                class="spn-search-title">Busqueda avanzada：</span>
-                                            </v-col>
-                                            <v-col class="pa-0 d-flex align-center justify-end" cols="2">
-                                                <v-btn class="mx-1 base-btn base-btn_search elevation-0"
-                                                       @click="loadData">Buscar
-                                                </v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-expansion-panel-header>
-                                    <v-expansion-panel-content class="pa-0">
-                                        <v-row class="ma-0">
-                                            <v-col class="pa-1 d-flex align-center" cols="12">
-                                                <v-text-field label="Nombre, Codigo"
-                                                              v-model="search" outlined="outlined" dense="dense"
-                                                              hide-details="hide-details"></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                            </v-expansion-panels>
                             <v-data-table
                                 class="my-4"
                                 :headers="headers"

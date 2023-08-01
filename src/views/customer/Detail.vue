@@ -84,8 +84,26 @@
                       </v-text-field>
                   </v-col>
                 </v-row>
+                <v-row class="px-3 ma-1">
+                    <v-col cols="6">
+                      <v-text-field outlined color="primary" hide-details="auto"
+                      v-model="data.postal_code"
+                      label="Codigo Postal"
+                      type="text"
+                      placeholder="00001">
+                      </v-text-field>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-text-field outlined color="primary" hide-details="auto"
+                      v-model="data.password"
+                      label="Contraseña"
+                      type="text"
+                      placeholder="1478963">
+                      </v-text-field>
+                  </v-col>
+                </v-row>
                 <v-card-actions class="pa-4 d-flex align-center justify-end">
-                  <v-btn class="mx-1 base-btn base-btn_save_customer elevation-0">Guardar</v-btn>
+                  <v-btn class="mx-1 base-btn base-btn_save_customer elevation-0" @click="onClickSave">Guardar</v-btn>
                   <v-btn class="mx-1 base-btn base-btn_cancel elevation-0" @click="onClickCancel">Cancelar</v-btn>
                 </v-card-actions>
             </v-card>
@@ -122,7 +140,9 @@ export default {
     }),
     methods: {
         async loadCustomer() {
-            this.$root.$emit('loader-show')
+            let self = this;
+            self.$root.$emit('loader-show')
+
             const url = `${config.api.baseURL}/customers/${this.$route.params.id}`
             await axios.get(url)
                 .then(response => {
@@ -135,6 +155,38 @@ export default {
                 .finally(() => {
                     this.$root.$emit('loader-hide')
                 })
+        },
+        async onClickSave() {
+          const self = this;
+          self.$root.$emit('loader-show');
+
+          let url = `${config.api.baseURL}/customers/`;
+          let method = 'post';
+          let sendData = {...self.data};
+
+          // Si data.id no es 0, entonces estamos actualizando un producto existente
+          if (self.data.id !== 0) {
+              url += `${self.data.id}/`;
+              method = 'put';
+          } else {
+              // Si estamos insertando hay que quitar el campo id
+              delete sendData.id;
+          }
+
+          console.log(sendData)
+          axios[method](url, sendData)
+              .then(response => {
+                  console.error(response);
+                  self.$router.push({
+                      path: PAGE.CUSTOMER.PATH,
+                  })
+              })
+              .catch(error => {
+                  console.error(error);
+              })
+              .finally(() => {
+                  self.$root.$emit('loader-hide');
+              });
         },
         onClickCancel() {
             this.$router.push({

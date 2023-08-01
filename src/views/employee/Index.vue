@@ -7,7 +7,7 @@
                         <span class="title-txt">Empleados</span>
                     </v-col>
                     <v-col class="d-flex align-center justify-end"
-                           @click="onClickNew"
+                           @click="onClickNewEmployee"
                            cols="2"
                     >
                         <v-btn class="mx-1 base-btn_create_customer elevation-0">
@@ -26,31 +26,6 @@
                 <v-row class="ma-0">
                     <v-col class="pa-0" cols="12">
                         <v-container fluid>
-                            <v-expansion-panels>
-                                <v-expansion-panel>
-                                    <v-expansion-panel-header class="pa-0">
-                                        <v-row class="ma-0 px-2">
-                                            <v-col class="pa-0 d-flex align-center" cols="10"><span
-                                                    class="spn-search-title">Busqueda avanzada：</span>
-                                            </v-col>
-                                            <v-col class="pa-0 d-flex align-center justify-end" cols="2">
-                                                <v-btn class="mx-1 base-btn base-btn_search elevation-0"
-                                                       @click="loadData">Buscar
-                                                </v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-expansion-panel-header>
-                                    <v-expansion-panel-content class="pa-0">
-                                        <v-row class="ma-0">
-                                            <v-col class="pa-1 d-flex align-center" cols="12">
-                                                <v-text-field label="Nombre, Codigo"
-                                                              v-model="search" outlined="outlined" dense="dense"
-                                                              hide-details="hide-details"></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                            </v-expansion-panels>
                             <v-data-table
                                     class="my-4"
                                     :headers="headers"
@@ -63,16 +38,21 @@
                                     @update:sort-desc="updateSortDesc"
                                     @click:row="onClickRow"
                             >
+                                <template v-slot:item.actions="{ item }">
+                                    <v-icon small class="mr-2" @click.stop="deleteItem(item)">
+                                        mdi-delete
+                                    </v-icon>
+                                </template>
                             </v-data-table>
-
+                            
                         </v-container>
                     </v-col>
                 </v-row>
-                <v-divider/>
-                <v-row class="ma-4">
+                <v-divider/>    
+                <v-row class="ma-0">
                     <v-col cols="8">
                     </v-col>
-                    <v-col class="pa-0 d-flex align-center justify-start" cols="4">
+                    <v-col class="pa-0 d-flex align-center justify-center" cols="12">
                         <v-pagination
                                 v-model="paginationCurrent"
                                 :length="paginationCount"
@@ -81,15 +61,6 @@
                                 @input="changePagination"
                         >
                         </v-pagination>
-                        <v-text-field
-                                v-model="pageNumberTextField"
-                                class="ml-2 page-txt-field"
-                                id="pageNumberTextField"
-                                type="number"
-                                dense
-                                outlined
-                                hide-details
-                                @keydown.enter="onPressPagingKeyEnter"/>
                     </v-col>
                 </v-row>
             </v-card-text>
@@ -126,18 +97,19 @@ export default {
             {text: 'Salario', value: 'salary'},
             {text: 'Teléfono', value: 'phone'},
             {text: 'Correo Electrónico', value: 'email'},
-        ],
+            {text: 'Acciones', value: 'actions', sortable: false},
+        ],  
         data: [],
     }),
     methods: {
         updateSortDesc() {
-            this.loadData()
+            this.loadEmployees()
         },
         onClickRow(value) {
             let e = this.data.find(item => item.id === value.id)
             if (e && e.id !== undefined) {
                 this.$router.push({
-                    name: PAGE.PRODUCT_DETAIL.PATH,
+                    name: PAGE.EMPLOYEE_DETAIL.NAME,
                     params: {id: value.id}
                 })
                 return
@@ -145,26 +117,24 @@ export default {
         },
         changePagination(number) {
             this.paginationCurrent = number
-            this.loadData()
+            this.loadEmployees()
         },
         onPressPagingKeyEnter() {
             let input = document.getElementById("pageNumberTextField")
             let val = parseInt(input.value)
             if (val > 0 && val <= this.paginationCount) {
                 this.paginationCurrent = val
-                this.loadData()
+                this.loadEmployees()
             }
             this.pageNumber = this.paginationCurrent
         },
-        async loadData() {
+        async loadEmployees() {
             const url = `${config.api.baseURL}/employees`;
 
             await axios.get(url, {  })
                 .then(response => {
                     // Handle the response data
                     this.data =  response.data;
-                    this.pageNumberTextField = 0;//response.data.total;
-                    // console.log(response.data.total)
                 })
                 .catch(error => {
                     // Handle the error
@@ -172,15 +142,32 @@ export default {
                 });
 
         },
-        onClickNew() {
+        async deleteItem(item) {
+            const self = this;
+            const confirmed = window.confirm(`¿Estás seguro de que deseas eliminar el producto ${item.first_name}?`);
+            if (confirmed) {
+                self.$root.$emit('loader-show');
+                await axios.delete(`${config.api.baseURL}/employees/${item.id}`)
+                    .then(response => {
+                        self.loadEmployees();
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
+                    .finally(function () {
+                        self.$root.$emit('loader-hide');
+                    });
+            }
+        },
+        onClickNewEmployee() {
             this.$router.push({
-                path: PAGE.EMPLOYEE_DETAIL.PATH,
+                path: PAGE.EMPLOYEE_NEW.PATH,
             })
         },
 
     },
     mounted(){
-        this.loadData();
+        this.loadEmployees();
     },
 }
 </script>

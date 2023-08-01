@@ -52,6 +52,10 @@ export const PAGE = {
         PATH: "/detail-customer/:uid",
         NAME: "CustomerDetail"
     },
+    CUSTOMER_NEW: {
+        PATH: "/detail-customer",
+        NAME: "CustomerDetail"
+    },
     CATEGORY: {
         PATH: "/category",
         NAME: "Category"
@@ -86,6 +90,10 @@ export const PAGE = {
     },
     EMPLOYEE_DETAIL: {
         PATH: "/detail-employee/:uid",
+        NAME: "EmployeeDetail"
+    },
+    EMPLOYEE_NEW: {
+        PATH: "/detail-employee",
         NAME: "EmployeeDetail"
     },
     REPORT: {

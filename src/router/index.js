@@ -93,13 +93,19 @@ const routes = [
   {
     path: PAGE.EMPLOYEE.PATH,
     name: PAGE.EMPLOYEE.NAME,
-    component: () => import('../views/employee/Index.vue')
+    component: () => import('../views/employee/Index')
   },
   {
     path: PAGE.EMPLOYEE_DETAIL.PATH,
     name: PAGE.EMPLOYEE_DETAIL.NAME,
-    component: () => import('../views/employee/Detail.vue')
+    component: () => import('../views/employee/Detail')
   },
+  {
+    path: PAGE.EMPLOYEE_NEW.PATH,
+    name: PAGE.EMPLOYEE_NEW.NAME,
+    component: () => import('../views/employee/Detail')
+  },
+
   {
     path: PAGE.REPORT.PATH,
     name: PAGE.REPORT.NAME,
