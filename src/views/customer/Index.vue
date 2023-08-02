@@ -4,7 +4,7 @@
             <v-card-title>
                 <v-row>
                     <v-col class="d-flex align-center" cols="10">
-                        <span class="title-txt">Clientes</span>
+                        <span class="title-txt">Cliente1</span>
                     </v-col>
                     <v-col class="d-flex align-center justify-end"
                            @click="onClickNew"
