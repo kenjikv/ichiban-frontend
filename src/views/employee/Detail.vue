@@ -14,6 +14,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.first_name"
                                   label="Primer Nombre"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -21,6 +22,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.middle_name"
                                   label="Segundo Nombre"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -30,6 +32,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.last_name"
                                   label="Apellido"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -49,6 +52,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.salary"
                                   label="Salario"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -106,6 +110,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.address"
                                   label="Dirección"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -115,6 +120,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.phone"
                                   label="Teléfono"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -122,6 +128,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.email"
                                   label="Correo Electrónico"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -131,6 +138,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.password"
                                   label="Contraseña"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -174,7 +182,10 @@ export default {
             email: '',
             password: '',
         },
-        genders: ["male", "female", "non-binary"]
+        genders: ["male", "female", "non-binary"],
+        rules: {
+            required: value => !!value || 'Campo requerido',
+        }
     }),
     methods: {
         async loadEmployee() {

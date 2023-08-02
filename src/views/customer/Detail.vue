@@ -17,6 +17,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.first_name"
                                   label="Primer Nombre"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -33,6 +34,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.last_name"
                                   label="Apellido"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -43,6 +45,7 @@
                             label="Genero"
                             outlined
                             color="primary"
+                            :rules="[rules.required]"
                             hide-details="auto">
                     </v-select>
                 </v-col>
@@ -52,6 +55,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.phone"
                                   label="Celular"
+                                  :rules="[rules.required]"
                                   type="number">
                     </v-text-field>
                 </v-col>
@@ -59,6 +63,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.address"
                                   label="Dirección"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -68,6 +73,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.city"
                                   label="Ciudad"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -75,6 +81,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.email"
                                   label="Email"
+                                  :rules="[rules.required]"
                                   type="email">
                     </v-text-field>
                 </v-col>
@@ -84,6 +91,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.postal_code"
                                   label="Codigo Postal"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -91,6 +99,7 @@
                     <v-text-field outlined color="primary" hide-details="auto"
                                   v-model="data.password"
                                   label="Contraseña"
+                                  :rules="[rules.required]"
                                   type="text">
                     </v-text-field>
                 </v-col>
@@ -130,7 +139,10 @@ export default {
             created_at: '',
             update_at: '',
         },
-        genders: ["male", "female", "non-binary"]
+        genders: ["male", "female", "non-binary"],
+        rules: {
+            required: value => !!value || 'Campo requerido',
+        }
     }),
     methods: {
         async loadCustomer() {
@@ -142,6 +154,7 @@ export default {
                 await axios.get(url)
                     .then(response => {
                         self.data = response.data
+                        console.log(self.data);
                     })
                     .catch(error => {
                         console.error(error);
@@ -153,6 +166,7 @@ export default {
         },
         async onClickSave() {
             const self = this;
+
             self.$root.$emit('loader-show');
 
             let url = `${config.api.baseURL}/customers/`;

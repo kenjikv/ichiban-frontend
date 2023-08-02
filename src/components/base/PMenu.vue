@@ -60,11 +60,11 @@ export default {
         },
         clickedLogout() {
             localStorage.removeItem("mail")
-            this.$router.push({name: PAGE.BASE.NAME});
+            this.$router.push({name: PAGE.LOGIN.NAME});
         },
         showMenu() {
             this.isShow = true
-            this.showUserName()
+            this.showUserName2()
         },
         hideMenu() {
             this.isShow = false
@@ -75,10 +75,13 @@ export default {
         activeMenu(code) {
             return this.activeItem === code ? "menu_active" : ""
         },
+        showUserName2() {
+            return localStorage.getItem("mail");
+        },
     },
     computed: {
         showUserName() {
-            return localStorage.getItem("mail").toString();
+            return localStorage.getItem("mail");
         },
     },
     created() {
