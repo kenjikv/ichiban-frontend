@@ -103,7 +103,7 @@ export default {
             self.$root.$emit("app-show-loader");
             axios({
                 method: 'post',
-                url: `${config.api.baseURL}/api/login`,
+                url: `${config.api.baseURL}/login`,
                 data: Utils.toJSON(user),
                 headers: {'Content-Type': 'application/json'}
             })

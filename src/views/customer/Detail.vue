@@ -56,7 +56,7 @@
                                   v-model="data.phone"
                                   label="Celular"
                                   :rules="[rules.required]"
-                                  type="number">
+                                  type="text">
                     </v-text-field>
                 </v-col>
                 <v-col cols="6">
